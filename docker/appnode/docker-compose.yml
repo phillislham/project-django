@@ -1,0 +1,21 @@
+version: '3'
+services:
+  redis-server:
+    container_name: redis-server
+    image: 'redis'
+    networks:
+      - redisnodenetwork
+    restart: unless-stopped
+
+  node-app:
+    container_name: node-app
+    build: .
+    networks:
+      - redisnodenetwork
+    ports:
+      - 80:8000
+    restart: unless-stopped
+
+networks:
+  redisnodenetwork:
+    driver: bridge
